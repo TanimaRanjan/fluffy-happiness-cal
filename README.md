@@ -1,11 +1,5 @@
 # react-big-calendar
 
-An events calendar component built for React and made for modern browsers (read: IE10+) and uses flexbox over the classic tables-ception approach.
-
-[**DEMO and Docs**](http://jquense.github.io/react-big-calendar/examples/index.html)
-
-Inspired by [Full Calendar](http://fullcalendar.io/).
-
 ## Use and Setup
 
 `yarn add react-big-calendar` or `npm install --save react-big-calendar`
@@ -123,10 +117,3 @@ Big Calendar to match your application styling. For this reason, SASS files are 
 SASS implementation provides a `variables` file containing color and sizing variables that you can
 update to fit your application. _Note:_ Changing and/or overriding styles can cause rendering issues with your
 Big Calendar. Carefully test each change accordingly.
-
-## Join us on Reactiflux Discord
-
-Join us on [Reactiflux Discord](https://discord.gg/reactiflux) community under the channel #libraries if you have any questions.
-
-# fluffy-happiness-cal
-# fluffy-happiness-cal
