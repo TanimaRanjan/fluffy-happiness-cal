@@ -132,20 +132,24 @@ export default [
   {
     id: 20,
     title: 'An overlapped Event',
-    start: new Date(2020, 10,14, 17, 0, 0),
-    end: new Date(2020, 10,14, 18, 30, 0),
+    start: new Date(2020, 10,24, 17, 0, 0),
+    end: new Date(2020, 10,24, 18, 30, 0),
+    type:'call'
   },
   {
     id: 21,
     title: 'Phone Interview',
-    start: new Date(2020, 10,14, 17, 0, 0),
-    end: new Date(2020, 10,14, 18, 30, 0),
+    start: new Date(2020, 10,24, 17, 0, 0),
+    end: new Date(2020, 10,24, 18, 30, 0),
+    type:'google'
+
   },
   {
     id: 22,
     title: 'Cooking Class',
     start: new Date(2020, 10,14, 17, 30, 0),
     end: new Date(2020, 10,14, 19, 0, 0),
+    type:'busy'
   },
   {
     id: 23,
@@ -153,7 +157,9 @@ export default [
     start: new Date(2020, 10, 22, 18, 30, 0),
     end: new Date(2020, 10, 22, 20, 0, 0),
     class:'red',
-    desc:'Going to the gym today'
+    desc:'Going to the gym today',
+    type:'draft',
+    brand:'TI' // TopInterview TopREsume etc ? 
 
   },
   // {

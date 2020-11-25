@@ -5,6 +5,7 @@ import * as dates from '../../src/utils/dates'
 
 function Event({ event }) {
   return (
+  
     <span className={event.class}>
       <strong>{event.title}</strong>
       {event.desc && ':  ' + event.desc}
@@ -48,6 +49,7 @@ let MyCustomHeader = ({ label }) => (
   </div>
 )
 
+
 let MyCustomEvent = ({ label }) => (
   <div>
     Can add custom event
@@ -71,23 +73,6 @@ const ColoredTimeCellWrapper = ({ children }) =>
         },
     });
 
-    const customEventPropGetter = (event, start, end, isSelected) => {
-      let newStyle = {
-        backgroundColor: "lightgrey",
-        color: 'black',
-        borderRadius: "0px",
-        border: "none"
-      };
-      if (event.isMine){
-        newStyle.backgroundColor = "lightgreen"
-      }
-      return {
-        className: "",
-        style: newStyle
-      };
-    }
-
-
 let MyOtherNestedComponent = () => <div>NESTED COMPONENT</div>
 let today = new Date() 
 let Rendering = ({ localizer }) => (
@@ -99,30 +84,56 @@ let Rendering = ({ localizer }) => (
     localizer={localizer}
     defaultDate={today}
     defaultView={Views.WEEK}
-    views={{ week: true }}
     min={new Date(2020, 10, 0, 7, 0, 0)}
     scrollToTime={new Date(1970, 1, 1, 6)}
     max={dates.add(dates.endOf(new Date(2020, 12, 30), 'day'), -1, 'hours')}
     dayPropGetter={customDayPropGetter}
     slotPropGetter={customSlotPropGetter}
-    eventPropGetter={customEventPropGetter}
     components={{
       event: Event,
       agenda: {
         event: EventAgenda,
       
       },
-      // day: { header: MyCustomHeader,
-      // event: MyCustomEvent },
-      week: { header: MyCustomHeader,
-        event: MyCustomEvent },
-      // month: { header: MyCustomHeader },
+      day: { header: MyCustomHeader,
+      event: MyCustomEvent },
+      week: { header: MyCustomHeader },
+      month: { header: MyCustomHeader },
       timeSlotWrapper: ColoredTimeCellWrapper,
       dateCellWrapper: ColoredDateCellWrapper,
     }}
+    style={{ height: 200 }}
+    // formats={{dateFormat: 'D', weekdayFormat: 'dddd'}}
   />
 
- 
+  // <Calendar
+  //     events={events}
+  //     defaultView={Views.AGENDA}
+  //     formats={{
+  //       weekdayFormat: 'dddd',
+  //       dayFormat: 'DD dddd',
+  //     }}
+  //     localizer={localizer}
+  //     timeslots={2} // controls the step of timeslots in week view
+  //     min={getExactTime(8)} // controls the timeslot start in week view
+  //     max={getExactTime(23)} // controls the timeslot end in week view
+  //     // components={{
+  //     //   toolbar: ToolBar,
+  //     //   week: MyCustomWeekView
+  //     // }}
+  //   />
+
+  // events={this.getBookings()}
+  //     defaultDate={calendarDate.toDate()}
+  //     date={calendarDate.toDate()}
+  //     onNavigate={() => {}}
+  //     view={this.props.calendarType || CalendarTypes.DAY}
+  //     onView={()=> {}}
+  //     toolbar={false}
+  //     selectable={true}
+  //     popup={true}
+  //     scrollToTime={initTime}
+  //     formats={{dateFormat: 'D', weekdayFormat: 'dddd'}}
 )
 
 export default Rendering

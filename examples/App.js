@@ -32,8 +32,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 const globalizeLocalizer = localizer(globalize)
 
-let demoRoot =
-  'https://github.com/intljusticemission/react-big-calendar/tree/master/examples/demos'
 
 const EXAMPLES = {
   basic: 'Basic Calendar',
@@ -90,23 +88,6 @@ class Example extends React.Component {
             <h1>
               Big Calendar <i className="fa fa-calendar" />
             </h1>
-            <p>such enterprise, very business.</p>
-            <p>
-              <a href="#intro">
-                <i className="fa fa-play" /> Getting started
-              </a>
-              {' | '}
-              <a href="#api">
-                <i className="fa fa-book" /> API documentation
-              </a>
-              {' | '}
-              <a
-                target="_blank"
-                href="https://github.com/intljusticemission/react-big-calendar"
-              >
-                <i className="fa fa-github" /> github
-              </a>
-            </p>
           </div>
         </div>
         <div className="examples">
@@ -116,14 +97,6 @@ class Example extends React.Component {
               justify="space-between"
               style={{ marginBottom: 15 }}
             >
-              <div className="examples--view-source">
-                <a target="_blank" href={demoRoot + '/' + selected + '.js'}>
-                  <strong>
-                    <i className="fa fa-code" />
-                    {' View example source code'}
-                  </strong>
-                </a>
-              </div>
               <Dropdown
                 pullRight
                 id="examples-dropdown"
@@ -151,12 +124,6 @@ class Example extends React.Component {
           <div className="example">
             <Current localizer={globalizeLocalizer} />
           </div>
-        </div>
-        <div className="docs">
-          <div className="contain section">
-            <Intro />
-          </div>
-          <Api className="contain section" />
         </div>
       </div>
     )
