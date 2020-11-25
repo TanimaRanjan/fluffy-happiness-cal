@@ -44,7 +44,7 @@ const customSlotPropGetter = date => {
 let MyCustomHeader = ({ label }) => (
   <div>
     CUSTOM HEADER:
-    <div>{label}</div>
+    <div>{label.label}</div>
     <MyOtherNestedComponent />
   </div>
 )
