@@ -86,7 +86,6 @@ class Example extends React.Component {
         <div className="jumbotron">
           <div className="container">
             <h1>
-              Big Calendar <i className="fa fa-calendar" />
             </h1>
           </div>
         </div>
@@ -123,6 +122,13 @@ class Example extends React.Component {
           </Card>
           <div className="example">
             <Current localizer={globalizeLocalizer} />
+          </div>
+        </div>
+        <div className="jumbotron">
+          <div className="container">
+            <h1>
+          
+            </h1>
           </div>
         </div>
       </div>
