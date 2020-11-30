@@ -116,7 +116,7 @@ let Rendering = ({ localizer }) => (
       // event: MyCustomEvent },
       week: { header: MyCustomHeader,
         event: MyCustomEvent },
-      // month: { header: MyCustomHeader },
+      month: { header: MyCustomHeader },
       timeSlotWrapper: ColoredTimeCellWrapper,
       dateCellWrapper: ColoredDateCellWrapper,
     }}

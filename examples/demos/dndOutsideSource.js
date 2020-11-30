@@ -51,6 +51,7 @@ class Dnd extends React.Component {
     }
   }
 
+  
   onDropFromOutside = ({ start, end, allDay }) => {
     const { draggedEvent, counters } = this.state
     const event = {
