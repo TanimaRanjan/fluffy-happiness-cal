@@ -1,38 +1,26 @@
 import React, { useState } from 'react'
+import moment from 'moment'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import './calendar.scss'
 import 'react-big-calendar/lib/sass/styles.scss'
-import Box from '@material-ui/core/Box'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+
 import i18n from '../../i18n'
 import DashboardStyles from './Styles'
+import isSameDay from 'date-fns/isSameDay'
 import dateFormat from 'date-fns/format'
 import differenceInHours from 'date-fns/differenceInHours'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
-import endOfDay from 'date-fns/endOfDay'
-import addHours from 'date-fns/addHours'
-import './calendar.scss'
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-import moment from 'moment'
+
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+
+import Box from '@material-ui/core/Box'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem'
 import Typography from '@material-ui/core/Typography'
-import FindReplaceIcon from '@material-ui/icons/FindReplace'
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
-import Grid from '@material-ui/core/Grid'
-import Link from '@material-ui/core/Link'
-import YesNoDialog from '../AutoLinkedin/YesNoDialog'
 import CallIcon from '@material-ui/icons/Call'
-// import SearchModal, { View } from './SearchModal'
-import IconButton from '@material-ui/core/IconButton'
-// import { Context } from 'immutability-helper'
-// import * as dates from './calendarDate'
 import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import LensIcon from '@material-ui/icons/Lens'
+
 
 moment.locale('ko', {
   week: {
@@ -41,17 +29,35 @@ moment.locale('ko', {
   },
 })
 
-const localizer = momentLocalizer(moment)
-const now = new Date()
+// const localizer = momentLocalizer(moment)
+// const now = new Date()
 
-const events = [
-  // {
-  //   id: 14,
-  //   title: 'Today',
-  //   start: new Date(new Date().setHours(new Date().getHours() - 3)),
-  //   end: new Date(new Date().setHours(new Date().getHours() + 3)),
-  // },
-  {
+// Types 
+// Events 
+export interface Events {
+  event: Event[]
+}
+// Event 
+export interface Event {
+  id: number
+  title: String
+  description?: String
+  start: Date
+  end: Date
+  type: String // event_type
+ // participants?: Participant[]
+ participant?: String
+  brand?: String
+}
+// 
+export interface Participant {
+ id: number
+ name: String
+ email?: String
+} 
+
+const events  = [
+   {
     id: 19,
     title: 'An overlapped Event',
     start: new Date(2020, 10, 25, 9, 0, 0),
@@ -89,7 +95,7 @@ const events = [
     title: 'Go to the gym',
     start: new Date(2020, 10, 25, 16, 30, 0),
     end: new Date(2020, 10, 25, 18, 0, 0),
-    class: 'red',
+   // class: 'red',
     desc: 'Going to the gym today',
     type: 'draft',
     brand: 'TI', // TopInterview TopREsume etc ?
@@ -243,6 +249,7 @@ const CalendarContainer: React.FC = () => {
   const localizer = momentLocalizer(moment)
   const today = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   const MyCustomHeader = (label: any) => {
     return (
@@ -254,22 +261,26 @@ const CalendarContainer: React.FC = () => {
   }
 
   const customDayPropGetter = (date: Date) => {
-    if (date.getDate() === 7 || date.getDate() === 15)
+    // Check if the date is selected date and mark it. 
+    if (isSameDay(date, selectedDate))
       return {
-        className: 'special-day',
+        //className: 'special-day',
         style: {
-          border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
+        // border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
+        backgroundColor:'#DDD'//'#f7f7f7'
         },
       }
     else return {}
   }
 
   const customSlotPropGetter = (date: Date) => {
-    if (date.getDate() === 24 || date.getDate() === 15)
-      return {
-        className: classes.speciaDay,
-      }
-    else return {}
+    // if (date.getDate() === 24 || date.getDate() === 15)
+    //   return {
+    //     className: classes.speciaDay,
+    //     backgroundColor:'grey'
+    //   }
+    //else 
+    return {}
   }
 
   const MyCustomEvent = (props: any) => (
@@ -336,12 +347,9 @@ const CalendarContainer: React.FC = () => {
     console.log('#### onNavigate')
     console.log('#### date=', date)
     console.log('#### view=', view)
-    const new_date = moment(date)
-    // this.setState({
-    //   current_date: new_date
-    // });
-
-    //this.updateTimes(new_date, view);
+    //const new_date = moment(date)
+    setSelectedDate(date)
+    
   }
 
   // const MyCustomEventContainerWrapper = (props: any) => {
@@ -445,8 +453,11 @@ const CalendarContainer: React.FC = () => {
   //   </div >
   // )
   // }
+
   const handleSelectSlot = (props:any) => {
-    console.log("Selected", props.start, props.end, props);
+    console.log("Selected", props);
+    return false
+    
    // writeToLocalStorageHere(start);
 }
 
@@ -454,6 +465,9 @@ const CalendarContainer: React.FC = () => {
     <Box className={classes.schedule}>
       <Box className={classes.calendar}>
         <Calendar
+        //selectable={false}
+        
+        selectable="ignoreEvents"
           step={60}
           timeslots={1}
           localizer={localizer}
@@ -472,7 +486,9 @@ const CalendarContainer: React.FC = () => {
           eventPropGetter={customEventPropGetter}
           onNavigate={onNavigate}
           formats={{ timeGutterFormat: (date, localizer) => dateFormat(date, 'H') }}
-          onSelectSlot={handleSelectSlot}
+         // onSelectSlot={handleSelectSlot}
+        //  onView={handleSelectSlot}
+          onSelectEvent={handleSelectSlot}
           // formats={{dateFormat: 'ddd MMM DD', weekdayFormat: 'dddd'}}
           components={{
             event: MyCustomEvent,
@@ -520,7 +536,10 @@ const CalendarContainer: React.FC = () => {
               </Select>
         <List className={classes.listItems}>
           {events
-            .filter(event => event.type === 'call' && event.start === new Date())
+            .filter(event => {
+              return (
+                (event.type === 'call') && isSameDay(event.start , selectedDate)
+              )})
             .map(event => {
               console.log(differenceInHours(new Date(), event.start))
               console.log(differenceInMinutes(new Date(), event.start))
